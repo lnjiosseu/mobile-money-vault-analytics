@@ -1,0 +1,4 @@
+scenario,total_scheduled_agent_hours,total_labor_cost_usd,total_estimated_contact_cost_usd,peak_agents_in_any_hour,avg_agents_per_hour,target_utilization,labor_cost_difference_vs_base_usd,labor_cost_difference_vs_base_pct
+Base utilization (80%),9387.0,75096.0,22040.97,5,1.0715753424657535,0.8,0.0,0.0
+Higher utilization (85%),9101.0,72808.0,22040.97,5,1.0389269406392694,0.85,-2288.0,-3.046766805156067
+Lower utilization (70%),10055.0,80440.0,22040.97,6,1.1478310502283104,0.7,5344.0,7.116224565888995
