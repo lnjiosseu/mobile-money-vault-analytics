@@ -163,6 +163,10 @@ mobile-money-vault-analytics/
 
 ## Author
 
-**Ludovic Njiosseu**
+**Ludovic Njiosseu** | MPH (Biostatistics), NYU | Data Scientist & Statistician
+
+5+ years of experience in statistical analysis, data science, clinical research, and pharmaceutical analytics.
+
+Focused on applying statistical modeling, machine learning, and data-driven problem-solving to real-world business and product challenges.
 
 [GitHub repository](https://github.com/lnjiosseu/mobile-money-vault-analytics)
