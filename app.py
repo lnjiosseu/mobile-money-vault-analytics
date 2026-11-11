@@ -64,6 +64,22 @@ def money(value):
     return f"${value:,.2f}"
 
 
+def csv_download(frame):
+    """Format downloadable numeric fields for readable CSV exports."""
+    export = frame.copy()
+    integer_columns = {
+        "hour", "contacts", "unique_customers", "total_unlocks",
+        "support_unlocks", "ivr_unlocks", "chatbot_unlocks", "time_unlocks",
+        "peak_agents_in_any_hour", "total_scheduled_agent_hours",
+    }
+    for column in export.columns:
+        if column in integer_columns:
+            export[column] = pd.to_numeric(export[column], errors="coerce").round(0).astype("Int64")
+        elif pd.api.types.is_numeric_dtype(export[column]):
+            export[column] = pd.to_numeric(export[column], errors="coerce").round(2)
+    return export.to_csv(index=False, float_format="%.2f")
+
+
 def channel_labels(frame):
     result = frame.copy()
     if "support_channel" in result.columns:
@@ -195,13 +211,13 @@ if page == "Executive Overview":
 
     st.download_button(
         "Download selected-period daily support data",
-        data=daily.to_csv(index=False).encode("utf-8"),
+        data=csv_download(daily).encode("utf-8"),
         file_name="selected_period_daily_support.csv",
         mime="text/csv",
     )
     st.download_button(
         "Download selected-period vault unlock data",
-        data=filtered_unlocks.to_csv(index=False).encode("utf-8"),
+        data=csv_download(filtered_unlocks).encode("utf-8"),
         file_name="selected_period_vault_unlocks.csv",
         mime="text/csv",
     )
@@ -289,13 +305,13 @@ elif page == "Demand Analysis":
 
     st.download_button(
         "Download selected-period hourly support data",
-        data=filtered_hourly.to_csv(index=False).encode("utf-8"),
+        data=csv_download(filtered_hourly).encode("utf-8"),
         file_name="selected_period_hourly_support.csv",
         mime="text/csv",
     )
     st.download_button(
         "Download selected-period daily support data",
-        data=daily.to_csv(index=False).encode("utf-8"),
+        data=csv_download(daily).encode("utf-8"),
         file_name="selected_period_daily_support.csv",
         mime="text/csv",
     )
@@ -378,7 +394,7 @@ elif page == "Channel Economics":
     )
     st.download_button(
         "Download annual channel economics",
-        data=channel_display.to_csv(index=False).encode("utf-8"),
+        data=csv_download(channel_display).encode("utf-8"),
         file_name="annual_channel_economics.csv",
         mime="text/csv",
     )
@@ -440,7 +456,7 @@ elif page == "Staffing Scenarios":
     )
     st.download_button(
         "Download staffing scenario comparison",
-        data=staffing.to_csv(index=False).encode("utf-8"),
+        data=csv_download(staffing).encode("utf-8"),
         file_name="staffing_scenario_comparison.csv",
         mime="text/csv",
     )
